@@ -10,11 +10,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/sonner';
 import { CreditCard } from 'lucide-react';
+import { useCreateOrder } from '@/hooks/useMongo';
+import mongoService from '@/services/mongo/MongoService';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, total, clearCart } = useCart();
   const { processPayment, isProcessing } = useNiubiz();
+  const { createOrder, isLoading: isCreatingOrder } = useCreateOrder();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -46,17 +49,73 @@ const Checkout = () => {
       return;
     }
     
-    // Process payment through Niubiz
-    const success = await processPayment(total, {
-      cardNumber: formData.cardNumber,
-      cardholderName: formData.cardholderName,
-      expiryDate: formData.expiryDate,
-      cvv: formData.cvv
-    });
-    
-    if (success) {
-      clearCart();
-      navigate('/order-success');
+    try {
+      // Process payment through Niubiz
+      const paymentSuccess = await processPayment(total, {
+        cardNumber: formData.cardNumber,
+        cardholderName: formData.cardholderName,
+        expiryDate: formData.expiryDate,
+        cvv: formData.cvv
+      });
+      
+      if (!paymentSuccess) {
+        return;
+      }
+      
+      // Create user if it doesn't exist
+      let user = await mongoService.users.findByEmail(formData.email);
+      
+      if (!user) {
+        user = await mongoService.users.insertOne({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address
+        });
+      }
+      
+      // Create order in MongoDB
+      const order = await createOrder({
+        userId: user._id,
+        products: items.map(item => ({
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price
+        })),
+        totalAmount: total,
+        shippingDetails: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address
+        },
+        paymentDetails: {
+          method: 'credit_card',
+          cardLast4: formData.cardNumber.slice(-4),
+          transactionId: `tx_${Date.now()}`
+        },
+        status: 'processing'
+      });
+      
+      if (order) {
+        // Update product stock
+        for (const item of items) {
+          await mongoService.products.updateStock(item.id, item.quantity);
+        }
+        
+        // Link order to user
+        if (user) {
+          await mongoService.users.addOrder(user._id, order._id);
+        }
+        
+        clearCart();
+        navigate('/order-success', { state: { orderId: order._id } });
+      } else {
+        toast.error('Error al crear la orden');
+      }
+    } catch (error) {
+      toast.error('Ocurrió un error al procesar la orden');
+      console.error(error);
     }
   };
   
@@ -197,9 +256,9 @@ const Checkout = () => {
                     <Button 
                       type="submit" 
                       className="btn-primary w-full" 
-                      disabled={isProcessing}
+                      disabled={isProcessing || isCreatingOrder}
                     >
-                      {isProcessing ? 'Procesando...' : `Pagar S/ ${total.toFixed(2)}`}
+                      {isProcessing || isCreatingOrder ? 'Procesando...' : `Pagar S/ ${total.toFixed(2)}`}
                     </Button>
                   </div>
                 </div>
