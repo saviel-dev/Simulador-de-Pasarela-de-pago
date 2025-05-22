@@ -21,33 +21,33 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addToCart(product, 1);
   };
 
-  // Vista de lista para móviles
+  // Vista de lista para móviles - estilo Metro.pe
   if (isMobile) {
     return (
-      <Card className="mb-4 overflow-hidden">
+      <Card className="mb-4 overflow-hidden border">
         <Link to={`/product/${product.id}`} className="flex w-full">
-          <div className="w-1/3 p-2">
-            <AspectRatio ratio={1} className="bg-gray-100 overflow-hidden">
+          <div className="w-1/3 p-3 flex items-center justify-center">
+            <AspectRatio ratio={1} className="bg-gray-100 overflow-hidden relative w-full">
               <img
                 src={product.image}
                 alt={product.name}
                 className="object-cover w-full h-full"
               />
+              
+              {product.stock === 0 && (
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                  <span className="text-white font-bold text-xs">Agotado</span>
+                </div>
+              )}
             </AspectRatio>
-
-            {product.stock === 0 && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                <span className="text-white font-bold text-xs">Agotado</span>
-              </div>
-            )}
           </div>
 
-          <div className="w-2/3 p-3 flex flex-col justify-between">
+          <div className="w-2/3 p-4 flex flex-col justify-between">
             <div>
-              <h3 className="font-medium text-gray-800 text-sm line-clamp-2">{product.name}</h3>
+              <h3 className="font-medium text-gray-800 text-sm line-clamp-2 mb-1">{product.name}</h3>
               
-              <div className="mt-1">
-                <p className="text-caserita-blue font-bold">
+              <div className="mt-2">
+                <p className="text-red-600 font-bold text-lg">
                   S/ {product.price.toFixed(2)}
                 </p>
                 
@@ -59,15 +59,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
             </div>
             
-            <div className="mt-auto">
+            <div className="mt-auto pt-2">
               <Button 
-                className="w-full mt-2 bg-caserita-yellow text-gray-800 hover:bg-caserita-yellow-light"
+                className="w-full bg-yellow-400 text-gray-800 hover:bg-yellow-500 font-medium"
                 size="sm"
                 onClick={handleAddToCart}
                 disabled={product.stock === 0}
               >
-                <ShoppingCart className="h-4 w-4 mr-1" />
-                Agregar
+                AGREGAR
               </Button>
             </div>
           </div>

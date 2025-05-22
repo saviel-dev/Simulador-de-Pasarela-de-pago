@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ProductCard } from '@/components/ProductCard';
 import { products, categories } from '@/data/products';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Filter, ArrowDownAZ, ArrowDownUp } from 'lucide-react';
+import { Filter, ListFilter } from 'lucide-react';
 import { 
   Select,
   SelectContent,
@@ -48,9 +49,9 @@ const Products = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-1">
-        <div className="caserita-container py-6 md:py-12">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-8">Todos los Productos</h1>
+      <main className="flex-1 bg-gray-50">
+        <div className="caserita-container py-4 md:py-12">
+          <h1 className="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-8">Todos los Productos</h1>
           
           {/* Filters Row - Desktop */}
           {!isMobile && (
@@ -97,28 +98,28 @@ const Products = () => {
           
           {/* Filters Row - Mobile */}
           {isMobile && (
-            <div className="flex justify-between mb-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
               <Button 
                 variant="outline" 
-                className="flex-1 mr-2 justify-center"
+                className="flex justify-center items-center bg-white border-gray-300 h-12"
                 onClick={() => {
                   // Aquí se podría implementar un dialog para mostrar las categorías
                   console.log("Mostrar filtros");
                 }}
               >
-                <Filter className="h-4 w-4 mr-2" />
-                Filtrar
+                <Filter className="h-4 w-4 mr-2 text-red-500" />
+                <span className="text-red-500 font-medium">FILTRAR</span>
               </Button>
               <Button 
                 variant="outline" 
-                className="flex-1 ml-2 justify-center"
+                className="flex justify-center items-center bg-white border-gray-300 h-12"
                 onClick={() => {
                   // Aquí se podría implementar un dialog para mostrar opciones de ordenamiento
                   console.log("Mostrar opciones de ordenamiento");
                 }}
               >
-                <ArrowDownUp className="h-4 w-4 mr-2" />
-                Ordenar
+                <ListFilter className="h-4 w-4 mr-2 text-red-500" />
+                <span className="text-red-500 font-medium">ORDENAR</span>
               </Button>
             </div>
           )}
