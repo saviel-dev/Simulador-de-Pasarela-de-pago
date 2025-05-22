@@ -6,7 +6,7 @@ import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card } from '@/components/ui/card';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ProductCardProps {
   product: Product;
@@ -14,7 +14,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();

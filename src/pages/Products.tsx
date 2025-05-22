@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ProductCard } from '@/components/ProductCard';
 import { products, categories } from '@/data/products';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Filter, ArrowDownAZ, ArrowDownUp } from 'lucide-react';
 import { 
   Select,
@@ -26,7 +25,7 @@ import { Button } from '@/components/ui/button';
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('featured');
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   
   const filteredProducts = selectedCategory === 'all'
     ? products
