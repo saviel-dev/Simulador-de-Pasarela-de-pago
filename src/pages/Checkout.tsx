@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
-import { useNiubiz } from '@/context/NiubizContext';
+import { useNiubiz, PaymentMethod, PaymentInfo } from '@/context/NiubizContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/sonner';
-import { CreditCard } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { CreditCard, SmartphoneNfc } from 'lucide-react';
 import { useCreateOrder } from '@/hooks/useMongo';
 import mongoService from '@/services/mongo/MongoService';
 
@@ -19,6 +21,8 @@ const Checkout = () => {
   const { processPayment, isProcessing } = useNiubiz();
   const { createOrder, isLoading: isCreatingOrder } = useCreateOrder();
   
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit_card');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,6 +32,7 @@ const Checkout = () => {
     cardholderName: '',
     expiryDate: '',
     cvv: '',
+    mobilePhone: ''
   });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,19 +49,44 @@ const Checkout = () => {
       return;
     }
     
-    if (!formData.cardNumber || !formData.cardholderName || !formData.expiryDate || !formData.cvv) {
-      toast.error('Por favor completa todos los campos de la tarjeta');
-      return;
+    // Validate payment details based on selected payment method
+    if (paymentMethod === 'credit_card') {
+      if (!formData.cardNumber || !formData.cardholderName || !formData.expiryDate || !formData.cvv) {
+        toast.error('Por favor completa todos los campos de la tarjeta');
+        return;
+      }
+    } else if (paymentMethod === 'plin' || paymentMethod === 'yape') {
+      if (!formData.mobilePhone || formData.mobilePhone.length !== 9) {
+        toast.error('Por favor ingresa un número de celular válido de 9 dígitos');
+        return;
+      }
     }
     
     try {
-      // Process payment through Niubiz
-      const paymentSuccess = await processPayment(total, {
-        cardNumber: formData.cardNumber,
-        cardholderName: formData.cardholderName,
-        expiryDate: formData.expiryDate,
-        cvv: formData.cvv
-      });
+      let paymentInfo: PaymentInfo;
+      
+      // Prepare payment info based on selected method
+      if (paymentMethod === 'credit_card') {
+        paymentInfo = {
+          method: 'credit_card',
+          cardInfo: {
+            cardNumber: formData.cardNumber,
+            cardholderName: formData.cardholderName,
+            expiryDate: formData.expiryDate,
+            cvv: formData.cvv
+          }
+        };
+      } else {
+        paymentInfo = {
+          method: paymentMethod,
+          mobileInfo: {
+            phoneNumber: formData.mobilePhone
+          }
+        };
+      }
+      
+      // Process payment through selected method
+      const paymentSuccess = await processPayment(total, paymentInfo);
       
       if (!paymentSuccess) {
         return;
@@ -90,8 +120,10 @@ const Checkout = () => {
           address: formData.address
         },
         paymentDetails: {
-          method: 'credit_card',
-          cardLast4: formData.cardNumber.slice(-4),
+          method: paymentMethod,
+          ...(paymentMethod === 'credit_card' 
+            ? { cardLast4: formData.cardNumber.slice(-4) }
+            : { phoneNumber: formData.mobilePhone }),
           transactionId: `tx_${Date.now()}`
         },
         status: 'processing'
@@ -184,83 +216,162 @@ const Checkout = () => {
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-sm p-6">
-                  <div className="flex items-center mb-4">
-                    <h2 className="text-xl font-bold">Pago con tarjeta</h2>
-                    <CreditCard className="ml-2 h-5 w-5 text-caserita-blue" />
-                  </div>
+                <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+                  <h2 className="text-xl font-bold mb-4">Método de pago</h2>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2 sm:col-span-2">
-                      <Label htmlFor="cardNumber">Número de tarjeta</Label>
-                      <Input
-                        id="cardNumber"
-                        name="cardNumber"
-                        placeholder="0000 0000 0000 0000"
-                        value={formData.cardNumber}
-                        onChange={handleChange}
-                        maxLength={19}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2 sm:col-span-2">
-                      <Label htmlFor="cardholderName">Nombre en la tarjeta</Label>
-                      <Input
-                        id="cardholderName"
-                        name="cardholderName"
-                        value={formData.cardholderName}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="expiryDate">Fecha de expiración</Label>
-                      <Input
-                        id="expiryDate"
-                        name="expiryDate"
-                        placeholder="MM/AA"
-                        maxLength={5}
-                        value={formData.expiryDate}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="cvv">CVV</Label>
-                      <Input
-                        id="cvv"
-                        name="cvv"
-                        placeholder="123"
-                        maxLength={4}
-                        value={formData.cvv}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <div className="flex items-center p-4 bg-gray-50 rounded-md mb-4">
-                      <div className="flex-shrink-0">
-                        <img
-                          src="https://niubiz.com.pe/wp-content/uploads/2020/10/logo-niubiz.svg"
-                          alt="Niubiz"
-                          className="h-8"
-                        />
-                      </div>
-                      <p className="ml-4 text-sm text-gray-600">
-                        Pago seguro procesado por Niubiz. Tus datos están protegidos con encriptación de nivel bancario.
-                      </p>
+                  <RadioGroup 
+                    value={paymentMethod} 
+                    onValueChange={(value) => setPaymentMethod(value as PaymentMethod)}
+                    className="space-y-3"
+                  >
+                    <div className="flex items-center space-x-2 border rounded-md p-4 hover:bg-gray-50 transition-colors">
+                      <RadioGroupItem value="credit_card" id="payment-credit-card" />
+                      <Label htmlFor="payment-credit-card" className="flex items-center gap-2 cursor-pointer">
+                        <CreditCard className="h-5 w-5 text-caserita-blue" />
+                        <span>Tarjeta de crédito o débito</span>
+                      </Label>
                     </div>
                     
-                    <Button 
-                      type="submit" 
-                      className="btn-primary w-full" 
-                      disabled={isProcessing || isCreatingOrder}
-                    >
-                      {isProcessing || isCreatingOrder ? 'Procesando...' : `Pagar S/ ${total.toFixed(2)}`}
-                    </Button>
+                    <div className="flex items-center space-x-2 border rounded-md p-4 hover:bg-gray-50 transition-colors">
+                      <RadioGroupItem value="yape" id="payment-yape" />
+                      <Label htmlFor="payment-yape" className="flex items-center gap-2 cursor-pointer">
+                        <img src="https://niubiz.com.pe/wp-content/uploads/2023/04/logo-yape.png" alt="Yape" className="h-6" />
+                        <span>Pagar con Yape</span>
+                      </Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 border rounded-md p-4 hover:bg-gray-50 transition-colors">
+                      <RadioGroupItem value="plin" id="payment-plin" />
+                      <Label htmlFor="payment-plin" className="flex items-center gap-2 cursor-pointer">
+                        <img src="https://niubiz.com.pe/wp-content/uploads/2023/04/logo-plin.png" alt="Plin" className="h-6" />
+                        <span>Pagar con Plin</span>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+                
+                {paymentMethod === 'credit_card' ? (
+                  <div className="bg-white rounded-lg shadow-sm p-6">
+                    <div className="flex items-center mb-4">
+                      <h2 className="text-xl font-bold">Pago con tarjeta</h2>
+                      <CreditCard className="ml-2 h-5 w-5 text-caserita-blue" />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="cardNumber">Número de tarjeta</Label>
+                        <Input
+                          id="cardNumber"
+                          name="cardNumber"
+                          placeholder="0000 0000 0000 0000"
+                          value={formData.cardNumber}
+                          onChange={handleChange}
+                          maxLength={19}
+                          required={paymentMethod === 'credit_card'}
+                        />
+                      </div>
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="cardholderName">Nombre en la tarjeta</Label>
+                        <Input
+                          id="cardholderName"
+                          name="cardholderName"
+                          value={formData.cardholderName}
+                          onChange={handleChange}
+                          required={paymentMethod === 'credit_card'}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="expiryDate">Fecha de expiración</Label>
+                        <Input
+                          id="expiryDate"
+                          name="expiryDate"
+                          placeholder="MM/AA"
+                          maxLength={5}
+                          value={formData.expiryDate}
+                          onChange={handleChange}
+                          required={paymentMethod === 'credit_card'}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cvv">CVV</Label>
+                        <Input
+                          id="cvv"
+                          name="cvv"
+                          placeholder="123"
+                          maxLength={4}
+                          value={formData.cvv}
+                          onChange={handleChange}
+                          required={paymentMethod === 'credit_card'}
+                        />
+                      </div>
+                    </div>
                   </div>
+                ) : (
+                  <div className="bg-white rounded-lg shadow-sm p-6">
+                    <div className="flex items-center mb-4">
+                      <h2 className="text-xl font-bold">
+                        {paymentMethod === 'yape' ? 'Pago con Yape' : 'Pago con Plin'}
+                      </h2>
+                      <SmartphoneNfc className="ml-2 h-5 w-5 text-caserita-blue" />
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="mobilePhone">Número de celular</Label>
+                        <Input
+                          id="mobilePhone"
+                          name="mobilePhone"
+                          placeholder="9XXXXXXXX"
+                          type="tel"
+                          maxLength={9}
+                          value={formData.mobilePhone}
+                          onChange={handleChange}
+                          required={paymentMethod === 'plin' || paymentMethod === 'yape'}
+                        />
+                      </div>
+                      
+                      <div className="flex items-center p-4 bg-gray-50 rounded-md">
+                        <div className="flex-shrink-0 mr-4">
+                          <img
+                            src={paymentMethod === 'yape' 
+                              ? "https://niubiz.com.pe/wp-content/uploads/2023/04/logo-yape.png"
+                              : "https://niubiz.com.pe/wp-content/uploads/2023/04/logo-plin.png"}
+                            alt={paymentMethod === 'yape' ? 'Yape' : 'Plin'}
+                            className="h-10"
+                          />
+                        </div>
+                        <p className="text-sm text-gray-600">
+                          {paymentMethod === 'yape'
+                            ? 'Pagarás con Yape usando el número de celular ingresado. Recibirás una solicitud de pago en tu aplicación Yape.'
+                            : 'Pagarás con Plin usando el número de celular ingresado. Recibirás una solicitud de pago en tu aplicación Plin.'
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="mt-6">
+                  <div className="flex items-center p-4 bg-gray-50 rounded-md mb-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        src="https://niubiz.com.pe/wp-content/uploads/2020/10/logo-niubiz.svg"
+                        alt="Niubiz"
+                        className="h-8"
+                      />
+                    </div>
+                    <p className="ml-4 text-sm text-gray-600">
+                      Pago seguro procesado por Niubiz. Tus datos están protegidos con encriptación de nivel bancario.
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="btn-primary w-full" 
+                    disabled={isProcessing || isCreatingOrder}
+                  >
+                    {isProcessing || isCreatingOrder ? 'Procesando...' : `Pagar S/ ${total.toFixed(2)}`}
+                  </Button>
                 </div>
               </form>
             </div>
