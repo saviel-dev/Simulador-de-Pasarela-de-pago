@@ -13,6 +13,10 @@ export interface ProductDocument extends MongoDocument {
   image: string;
   category: string;
   stock: number;
+  discount?: number; // Porcentaje de descuento (opcional)
+  originalPrice?: number; // Precio original antes del descuento (opcional)
+  tags?: string[]; // Etiquetas adicionales para el producto
+  featured?: boolean; // Si el producto está destacado
 }
 
 export interface OrderDocument extends MongoDocument {
