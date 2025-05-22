@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Search, List } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
@@ -47,7 +47,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <h3 className="font-medium text-gray-800 text-sm line-clamp-2 mb-1">{product.name}</h3>
               
               <div className="mt-2">
-                <p className="text-red-600 font-bold text-lg">
+                <p className="text-caserita-blue font-bold text-lg">
                   S/ {product.price.toFixed(2)}
                 </p>
                 
@@ -61,11 +61,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             
             <div className="mt-auto pt-2">
               <Button 
-                className="w-full bg-yellow-400 text-gray-800 hover:bg-yellow-500 font-medium"
+                className="w-full bg-caserita-yellow text-gray-800 hover:bg-caserita-yellow-light font-medium"
                 size="sm"
                 onClick={handleAddToCart}
                 disabled={product.stock === 0}
               >
+                <ShoppingCart className="h-4 w-4 mr-1" />
                 AGREGAR
               </Button>
             </div>
@@ -75,46 +76,47 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     );
   }
 
-  // Vista de grid para escritorio (original)
+  // Vista de grid para escritorio (rediseñada)
   return (
-    <Link to={`/product/${product.id}`} className="product-card block overflow-hidden group">
-      <div className="relative aspect-square overflow-hidden bg-gray-100 group-hover:opacity-90 transition-opacity">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="object-cover w-full h-full transition-transform group-hover:scale-105"
-        />
-        
-        {product.stock <= 5 && product.stock > 0 && (
-          <span className="absolute top-2 right-2 bg-caserita-yellow px-2 py-1 text-xs font-semibold rounded">
-            ¡Pocas unidades!
-          </span>
-        )}
-        
-        {product.stock === 0 && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">Agotado</span>
-          </div>
-        )}
-      </div>
-      
-      <div className="p-4">
-        <h3 className="font-medium text-gray-800 mb-1 line-clamp-1">{product.name}</h3>
-        <div className="flex items-baseline justify-between">
-          <p className="text-caserita-blue font-bold">
-            S/ {product.price.toFixed(2)}
-          </p>
-          <Button 
-            size="sm" 
-            variant="ghost" 
-            className="opacity-0 group-hover:opacity-100 transition-opacity" 
-            onClick={handleAddToCart}
-            disabled={product.stock === 0}
-          >
-            <ShoppingCart className="h-4 w-4" />
-          </Button>
+    <Card className="product-card block overflow-hidden group transition-all hover:border-caserita-blue hover:shadow-md">
+      <Link to={`/product/${product.id}`}>
+        <div className="relative aspect-square overflow-hidden bg-gray-100">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="object-cover w-full h-full transition-transform group-hover:scale-105"
+          />
+          
+          {product.stock <= 5 && product.stock > 0 && (
+            <span className="absolute top-2 right-2 bg-caserita-yellow px-2 py-1 text-xs font-semibold rounded">
+              ¡Pocas unidades!
+            </span>
+          )}
+          
+          {product.stock === 0 && (
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">Agotado</span>
+            </div>
+          )}
         </div>
-      </div>
-    </Link>
+        
+        <div className="p-4">
+          <h3 className="font-medium text-gray-800 mb-2 line-clamp-2 h-12">{product.name}</h3>
+          <div className="flex items-center justify-between">
+            <p className="text-caserita-blue font-bold text-lg">
+              S/ {product.price.toFixed(2)}
+            </p>
+            <Button 
+              size="sm" 
+              className="bg-caserita-yellow text-gray-800 hover:bg-caserita-yellow-light" 
+              onClick={handleAddToCart}
+              disabled={product.stock === 0}
+            >
+              <ShoppingCart className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </Link>
+    </Card>
   );
 };
