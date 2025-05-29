@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, Search } from 'lucide-react';
+import { ShoppingCart, Menu, Search, LogIn, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -63,6 +63,13 @@ export const Navbar: React.FC = () => {
             </SheetContent>
           </Sheet>
 
+          {/* Auth Button - Desktop */}
+          <Link to="/auth" className="hidden md:block">
+            <Button variant="ghost" size="icon" className="rounded-full">
+              <LogIn className="h-5 w-5" />
+            </Button>
+          </Link>
+
           {/* Cart Button */}
           <Link to="/cart">
             <Button variant="ghost" size="icon" className="relative rounded-full">
@@ -111,6 +118,14 @@ export const Navbar: React.FC = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Nosotros
+                </Link>
+                <Link 
+                  to="/auth" 
+                  className="font-medium text-gray-700 hover:text-caserita-blue transition-colors flex items-center space-x-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <User className="h-4 w-4" />
+                  <span>Iniciar Sesión</span>
                 </Link>
               </div>
             </SheetContent>
