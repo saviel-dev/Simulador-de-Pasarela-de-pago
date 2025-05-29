@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { toast } from '@/components/ui/sonner';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,7 +34,8 @@ const Auth = () => {
       // Simulación de login
       if (formData.email && formData.password) {
         toast.success('¡Inicio de sesión exitoso!');
-        // Aquí iría la lógica real de autenticación
+        // Redirigir a la página principal
+        navigate('/');
       } else {
         toast.error('Por favor completa todos los campos');
       }
