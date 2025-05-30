@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/Hero';
 import { ProductCard } from '@/components/ProductCard';
 import { CategoryCard } from '@/components/CategoryCard';
+import { AlliedMarkets } from '@/components/AlliedMarkets';
 import { products, categories } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -30,7 +31,7 @@ const Index = () => {
                 </Button>
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {categories.map(category => (
                 <CategoryCard key={category.id} category={category} />
               ))}
@@ -56,6 +57,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Allied Markets Section */}
+        <AlliedMarkets />
         
         {/* Promotion Banner */}
         <section className="py-16">

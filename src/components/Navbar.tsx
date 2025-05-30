@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, LogIn, User } from 'lucide-react';
+import { ShoppingCart, Menu, Search, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,7 +66,7 @@ export const Navbar: React.FC = () => {
           {/* Auth Button - Desktop */}
           <Link to="/auth" className="hidden md:block">
             <Button variant="ghost" size="icon" className="rounded-full">
-              <LogIn className="h-5 w-5" />
+              <User className="h-5 w-5" />
             </Button>
           </Link>
 

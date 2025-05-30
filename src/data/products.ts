@@ -4,93 +4,103 @@ import { Product, Category } from '../types';
 export const products: Product[] = [
   {
     id: '1',
-    name: 'Smart TV 4K 55"',
-    price: 2499.99,
-    description: 'Smart TV 4K con resolución Ultra HD y sistema operativo inteligente',
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=2070',
-    category: 'electronics',
-    stock: 10
+    name: 'Manzanas Rojas Premium',
+    price: 8.50,
+    description: 'Manzanas rojas frescas y crujientes, perfectas para toda la familia',
+    image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?q=80&w=2064',
+    category: 'frutas',
+    stock: 50
   },
   {
     id: '2',
-    name: 'Laptop Pro 15"',
-    price: 4999.99,
-    description: 'Laptop profesional con procesador de última generación y 16GB de RAM',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1926',
-    category: 'electronics',
-    stock: 5
+    name: 'Leche Entera Gloria 1L',
+    price: 4.20,
+    description: 'Leche entera fresca y nutritiva, rica en calcio y vitaminas',
+    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=1974',
+    category: 'lacteos',
+    stock: 30
   },
   {
     id: '3',
-    name: 'Smartphone Ultra',
-    price: 3299.99,
-    description: 'Smartphone con cámara de 108MP y batería de larga duración',
-    image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=2127',
-    category: 'electronics',
-    stock: 15
+    name: 'Pollo Fresco por Kg',
+    price: 12.90,
+    description: 'Pollo fresco de granja, tierno y de excelente calidad',
+    image: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?q=80&w=1974',
+    category: 'carnes',
+    stock: 25
   },
   {
     id: '4',
-    name: 'Auriculares Wireless',
-    price: 499.99,
-    description: 'Auriculares inalámbricos con cancelación de ruido activa',
-    image: 'https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?q=80&w=2070',
-    category: 'accessories',
-    stock: 20
+    name: 'Arroz Extra Superior 5Kg',
+    price: 18.50,
+    description: 'Arroz de grano largo, ideal para preparaciones familiares',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=2070',
+    category: 'abarrotes',
+    stock: 40
   },
   {
     id: '5',
-    name: 'Smartwatch Deportivo',
-    price: 899.99,
-    description: 'Reloj inteligente con GPS y monitor de frecuencia cardíaca',
-    image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=2072',
-    category: 'accessories',
-    stock: 8
+    name: 'Tomates Frescos por Kg',
+    price: 6.80,
+    description: 'Tomates rojos maduros, perfectos para ensaladas y guisos',
+    image: 'https://images.unsplash.com/photo-1546470427-e26264d4e0c2?q=80&w=1974',
+    category: 'verduras',
+    stock: 35
   },
   {
     id: '6',
-    name: 'Consola de Videojuegos',
-    price: 1999.99,
-    description: 'Consola de última generación con gráficos 4K y 1TB de almacenamiento',
-    image: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=2060',
-    category: 'gaming',
-    stock: 3
+    name: 'Queso Fresco 500g',
+    price: 15.20,
+    description: 'Queso fresco artesanal, suave y cremoso para desayunos',
+    image: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=2073',
+    category: 'lacteos',
+    stock: 20
   },
   {
     id: '7',
-    name: 'Cámara Mirrorless',
-    price: 3599.99,
-    description: 'Cámara mirrorless profesional con sensor full-frame y 4K video',
-    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1964',
-    category: 'electronics',
-    stock: 7
+    name: 'Plátanos de Seda por Kg',
+    price: 3.50,
+    description: 'Plátanos dulces y nutritivos, ricos en potasio',
+    image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=1980',
+    category: 'frutas',
+    stock: 60
   },
   {
     id: '8',
-    name: 'Tablet Pro 12"',
-    price: 2799.99,
-    description: 'Tablet profesional con pantalla retina y lápiz digital incluido',
-    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1974',
-    category: 'electronics',
-    stock: 12
+    name: 'Aceite Vegetal Primor 1L',
+    price: 9.90,
+    description: 'Aceite vegetal puro, ideal para freír y cocinar',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=2126',
+    category: 'abarrotes',
+    stock: 45
   }
 ];
 
 export const categories: Category[] = [
   {
-    id: 'electronics',
-    name: 'Electrónicos',
-    image: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=2101'
+    id: 'frutas',
+    name: 'Frutas',
+    image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=2070'
   },
   {
-    id: 'accessories',
-    name: 'Accesorios',
-    image: 'https://images.unsplash.com/photo-1600003263720-95b45a4035d5?q=80&w=1974'
+    id: 'verduras',
+    name: 'Verduras',
+    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=2084'
   },
   {
-    id: 'gaming',
-    name: 'Gaming',
-    image: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2071'
+    id: 'lacteos',
+    name: 'Lácteos',
+    image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?q=80&w=2070'
+  },
+  {
+    id: 'carnes',
+    name: 'Carnes',
+    image: 'https://images.unsplash.com/photo-1588347818188-5993dcd5590a?q=80&w=2070'
+  },
+  {
+    id: 'abarrotes',
+    name: 'Abarrotes',
+    image: 'https://images.unsplash.com/photo-1586380951230-4814e7223021?q=80&w=2126'
   }
 ];
 
