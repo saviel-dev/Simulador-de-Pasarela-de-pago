@@ -95,12 +95,12 @@ export const categories: Category[] = [
   {
     id: 'carnes',
     name: 'Carnes',
-    image: 'https://images.unsplash.com/photo-1588347818188-5993dcd5590a?q=80&w=2070'
+    image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=2070'
   },
   {
     id: 'abarrotes',
     name: 'Abarrotes',
-    image: 'https://images.unsplash.com/photo-1586380951230-4814e7223021?q=80&w=2126'
+    image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=1974'
   }
 ];
 

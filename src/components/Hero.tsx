@@ -32,7 +32,7 @@ export const Hero: React.FC = () => {
         <div className="flex-1 relative">
           <div className="relative z-10 animate-fade-in">
             <img
-              src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?q=80&w=2070"
+              src="/images/image1.jpeg"
               alt="Productos de Caserita"
               className="rounded-lg shadow-xl transform rotate-2"
             />

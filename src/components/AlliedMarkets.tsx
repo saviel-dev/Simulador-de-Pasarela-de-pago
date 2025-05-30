@@ -11,21 +11,15 @@ interface Market {
 const markets: Market[] = [
   {
     id: '1',
-    name: 'Metro',
-    description: 'Calidad garantizada siempre disponible',
-    image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?q=80&w=2070'
+    name: 'Mercado Productores Santa Anita',
+    description: 'El principal mercado mayorista de Lima, ofreciendo la mejor calidad en productos frescos',
+    image: '/images/mercadoProductores.png'
   },
   {
     id: '2',
-    name: 'Wong',
-    description: 'Productos frescos de primera',
-    image: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?q=80&w=2070'
-  },
-  {
-    id: '3',
-    name: 'Plaza Vea',
-    description: 'Variedad completa para familias',
-    image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?q=80&w=2070'
+    name: 'Mercado Mayorista de Frutas & Lima - Perú',
+    description: 'Centro especializado en la distribución de frutas frescas para todo Lima',
+    image: '/images/mercadoMayorista.png'
   }
 ];
 
@@ -43,18 +37,18 @@ export const AlliedMarkets: React.FC = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-caserita-blue to-caserita-blue-light mx-auto mt-6 rounded-full"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {markets.map((market, index) => (
             <Card 
               key={market.id} 
               className="overflow-hidden group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white border-0 shadow-lg"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={market.image}
                   alt={market.name}
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                  className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
               
