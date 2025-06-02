@@ -10,16 +10,16 @@ import { useEffect, useState } from 'react';
 
 const carouselImages = [
   {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2070",
-    alt: "Supermercado moderno con productos frescos"
+    src: "/lovable-uploads/6a39dba5-ba36-4225-a79b-3081d6680b5f.png",
+    alt: "Tu hogar impecable con nuestros productos de limpieza"
   },
   {
-    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2069",
-    alt: "Variedad de frutas y verduras frescas"
+    src: "/lovable-uploads/d831d0ea-6bb5-4834-b754-db8fbe9d862a.png",
+    alt: "Frescura y calidad a tu mesa - productos seleccionados"
   },
   {
-    src: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2074",
-    alt: "Productos de supermercado de calidad"
+    src: "/lovable-uploads/58a23b49-f35c-495d-b80c-17e5c5a692ab.png",
+    alt: "Frescura y calidad en cada sorbo - descubre nuestros lácteos"
   }
 ];
 

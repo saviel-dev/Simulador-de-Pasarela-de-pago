@@ -25,9 +25,9 @@ const Index = () => {
         <section className="py-16 bg-white">
           <div className="caserita-container">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Nuestros Productos</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">Calidad y Frescura en Cada Compra</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Descubre la variedad y calidad de productos que tenemos para ti
+                Desde productos de limpieza hasta frutas frescas y lácteos de calidad. Todo lo que necesitas para tu hogar
               </p>
             </div>
             <ImageCarousel />
