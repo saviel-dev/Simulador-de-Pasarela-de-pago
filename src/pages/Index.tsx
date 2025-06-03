@@ -2,7 +2,6 @@
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/Hero';
-import { ImageCarousel } from '@/components/ImageCarousel';
 import { ProductCard } from '@/components/ProductCard';
 import { CategoryCard } from '@/components/CategoryCard';
 import { AlliedMarkets } from '@/components/AlliedMarkets';
@@ -20,19 +19,6 @@ const Index = () => {
       <main className="flex-1">
         {/* Hero Section */}
         <Hero />
-        
-        {/* Image Carousel Section */}
-        <section className="py-16 bg-white">
-          <div className="caserita-container">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Calidad y Frescura en Cada Compra</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Desde productos de limpieza hasta frutas frescas y lácteos de calidad. Todo lo que necesitas para tu hogar
-              </p>
-            </div>
-            <ImageCarousel />
-          </div>
-        </section>
         
         {/* Categories Section */}
         <section className="py-16">
