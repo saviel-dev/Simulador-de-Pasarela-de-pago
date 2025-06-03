@@ -17,7 +17,7 @@ const heroSlides = [
     title: "Encuentra todo en un solo lugar",
     highlight: "un solo",
     subtitle: "Todo lo que necesitas para tu hogar, trabajo y entretenimiento con entregas rápidas y precios justos.",
-    backgroundImage: "/lovable-uploads/6a39dba5-ba36-4225-a79b-3081d6680b5f.png",
+    backgroundImage: "/lovable-uploads/e9d5943f-1c99-4eb1-b45a-6e316fbc9c1d.png",
     primaryButton: { text: "Ver productos", link: "/products" },
     secondaryButton: { text: "Ver categorías", link: "/categories" }
   },
@@ -26,7 +26,7 @@ const heroSlides = [
     title: "Frescura y calidad",
     highlight: "a tu mesa",
     subtitle: "Productos seleccionados con la mejor calidad para tu familia. Variedad y frescura garantizada.",
-    backgroundImage: "/lovable-uploads/d831d0ea-6bb5-4834-b754-db8fbe9d862a.png",
+    backgroundImage: "/lovable-uploads/16ebbb33-419b-473e-9f7c-613cb71d2174.png",
     primaryButton: { text: "Ver productos", link: "/products" },
     secondaryButton: { text: "Ver ofertas", link: "/products" }
   },
@@ -35,9 +35,27 @@ const heroSlides = [
     title: "Frescura y calidad",
     highlight: "en cada sorbo",
     subtitle: "Descubre nuestros lácteos premium. Calidad y sabor que toda la familia disfruta.",
-    backgroundImage: "/lovable-uploads/58a23b49-f35c-495d-b80c-17e5c5a692ab.png",
+    backgroundImage: "/lovable-uploads/518c782f-e338-4fe4-9c4f-a29d30cd9efc.png",
     primaryButton: { text: "Ver lácteos", link: "/products" },
     secondaryButton: { text: "Ver categorías", link: "/categories" }
+  },
+  {
+    id: 4,
+    title: "Limpieza y orden",
+    highlight: "para tu hogar",
+    subtitle: "Productos de limpieza de alta calidad para mantener tu hogar impecable y saludable.",
+    backgroundImage: "/lovable-uploads/4415c1e7-4149-445d-a88b-c3a58e66587a.png",
+    primaryButton: { text: "Ver limpieza", link: "/products" },
+    secondaryButton: { text: "Ver categorías", link: "/categories" }
+  },
+  {
+    id: 5,
+    title: "Jugos y bebidas",
+    highlight: "naturales",
+    subtitle: "Refréscate con nuestras bebidas naturales y jugos frescos. Sabor y nutrición en cada vaso.",
+    backgroundImage: "/lovable-uploads/5ff39afc-3040-4b23-8a32-d3c13dca4057.png",
+    primaryButton: { text: "Ver bebidas", link: "/products" },
+    secondaryButton: { text: "Ver ofertas", link: "/products" }
   }
 ];
 
