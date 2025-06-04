@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -11,46 +12,53 @@ import {
 
 const carouselSlides = [
   {
-    image: "/lovable-uploads/ceca38c1-55e8-47a5-a643-169ae3a2eb93.png",
-    title: "Frescura y calidad en cada sorbo",
-    subtitle: "Descubre nuestros lácteos",
-    buttonText: "Ver Lácteos",
-    link: "/lacteos"
+    image: "/lovable-uploads/1208d1a1-5e8a-4315-b214-803ad02ca9c7.png",
+    title: "Frescura natural en cada bocado",
+    subtitle: "Descubre nuestras verduras seleccionadas, directamente del campo a tu mesa.",
+    buttonText: "Ver Verduras",
+    link: "/verduras"
   },
   {
-    image: "/lovable-uploads/a32a7e0b-8ad1-4a8a-9f11-7511638d691f.png",
-    title: "El sabor del hogar en cada bocado",
-    subtitle: "Explora nuestra panadería",
-    buttonText: "Ver Panadería",
-    link: "/panaderia"
+    image: "/lovable-uploads/4911a7c3-f815-452d-899e-83ab230452dd.png",
+    title: "Vitaminas y sabor en cada mordida",
+    subtitle: "Descubre nuestra variedad de frutas frescas y naturales.",
+    buttonText: "Ver Frutas",
+    link: "/frutas"
   },
   {
-    image: "/lovable-uploads/4f68ad14-bb11-402e-883f-5e576cf22474.png",
+    image: "/lovable-uploads/62c26a64-7d64-435c-928d-5229848db14e.png",
     title: "Tu hogar impecable",
     subtitle: "con nuestros productos de limpieza",
     buttonText: "Ver Limpieza Hogar",
     link: "/limpieza"
   },
   {
-    image: "/lovable-uploads/41ec047c-4731-417d-bd09-800ea6d50a12.png",
-    title: "Refresca tu día",
-    subtitle: "con nuestras bebidas favoritas",
-    buttonText: "Ver Bebidas",
-    link: "/bebidas"
-  },
-  {
-    image: "/lovable-uploads/480167ed-f238-4441-be5c-354c2d1f6aeb.png",
+    image: "/lovable-uploads/c0d44c16-4528-46b7-a5aa-74a809b305e5.png",
     title: "Del mar a tu mesa",
     subtitle: "Frescura y variedad en pescados y mariscos",
     buttonText: "Ver Carnes Marinas",
     link: "/carnes-marinas"
   },
   {
-    image: "/lovable-uploads/8ac04ddf-39b6-4755-a11a-d210634abd47.png",
-    title: "Calidad y sabor en cada corte",
-    subtitle: "Descubre nuestras carnes y pollo",
-    buttonText: "Ver Carnes y Pollo",
-    link: "/carnes-pollo"
+    image: "/lovable-uploads/b9537a2e-8c3d-4886-b95c-4a8d11eb3e69.png",
+    title: "Frescura y calidad en cada sorbo",
+    subtitle: "Descubre nuestros lácteos seleccionados: leche, yogures y más.",
+    buttonText: "Ver Lácteos",
+    link: "/lacteos"
+  },
+  {
+    image: "/lovable-uploads/a619c092-b30b-48a5-85f8-c07a104530b1.png",
+    title: "Refresca tu día",
+    subtitle: "con nuestras bebidas favoritas",
+    buttonText: "Ver Bebidas",
+    link: "/bebidas"
+  },
+  {
+    image: "/lovable-uploads/d3b4f039-bb53-46a5-896c-9981fd402f25.png",
+    title: "Nutrición y calidad en cada bocado",
+    subtitle: "Elige nuestras carnes frescas y seleccionadas para tu mesa.",
+    buttonText: "Ver Carnes",
+    link: "/carnes"
   }
 ];
 
@@ -102,7 +110,7 @@ export const Hero: React.FC = () => {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover md:object-cover object-contain"
                 />
                 
                 {/* Overlay with gradient */}
