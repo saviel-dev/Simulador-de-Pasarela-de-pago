@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -12,58 +11,44 @@ import {
 
 const carouselSlides = [
   {
-    image: "/lovable-uploads/fa274a4c-5841-4bd8-a2fb-a7a78fd51757.png",
+    image: "/lovable-uploads/ceca38c1-55e8-47a5-a643-169ae3a2eb93.png",
     title: "Frescura y calidad en cada sorbo",
     subtitle: "Descubre nuestros lácteos",
     buttonText: "Ver Lácteos",
     link: "/lacteos"
   },
   {
-    image: "/lovable-uploads/9bc18da9-fc77-4151-95f3-5c6cc91de552.png",
-    title: "Frescura y calidad a tu mesa",
-    subtitle: "Descubre nuestros productos seleccionados",
-    buttonText: "Ver Productos",
-    link: "/productos"
+    image: "/lovable-uploads/a32a7e0b-8ad1-4a8a-9f11-7511638d691f.png",
+    title: "El sabor del hogar en cada bocado",
+    subtitle: "Explora nuestra panadería",
+    buttonText: "Ver Panadería",
+    link: "/panaderia"
   },
   {
-    image: "/lovable-uploads/0c8b2993-76e4-4447-a301-2f600bbca993.png",
+    image: "/lovable-uploads/4f68ad14-bb11-402e-883f-5e576cf22474.png",
     title: "Tu hogar impecable",
     subtitle: "con nuestros productos de limpieza",
     buttonText: "Ver Limpieza Hogar",
     link: "/limpieza"
   },
   {
-    image: "/lovable-uploads/820288a6-247d-45fa-b788-6ac144fd5168.png",
+    image: "/lovable-uploads/41ec047c-4731-417d-bd09-800ea6d50a12.png",
     title: "Refresca tu día",
     subtitle: "con nuestras bebidas favoritas",
     buttonText: "Ver Bebidas",
     link: "/bebidas"
   },
   {
-    image: "/lovable-uploads/f6ff1a54-fc80-4886-bf9a-78759d794173.png",
-    title: "Carne fresca de mar",
-    subtitle: "a tu mesa",
+    image: "/lovable-uploads/480167ed-f238-4441-be5c-354c2d1f6aeb.png",
+    title: "Del mar a tu mesa",
+    subtitle: "Frescura y variedad en pescados y mariscos",
     buttonText: "Ver Carnes Marinas",
     link: "/carnes-marinas"
   },
   {
-    image: "/lovable-uploads/c838240c-bdf6-4eaf-ba50-b1ab4ed179af.png",
-    title: "Carne fresca de mar",
-    subtitle: "Explora nuestros mariscos y pescados seleccionados",
-    buttonText: "Ver Carnes Marinas",
-    link: "/carnes-marinas"
-  },
-  {
-    image: "/lovable-uploads/0a1e35cf-e886-41be-818f-ee48856425f0.png",
-    title: "Nutrición y calidad",
-    subtitle: "en cada bocado",
-    buttonText: "Ver Carnes",
-    link: "/carnes"
-  },
-  {
-    image: "/lovable-uploads/17aad33a-2106-4bb1-adae-30f9306ffb23.png",
-    title: "Nutrición y calidad en cada bocado",
-    subtitle: "Elige nuestras carnes seleccionadas",
+    image: "/lovable-uploads/8ac04ddf-39b6-4755-a11a-d210634abd47.png",
+    title: "Calidad y sabor en cada corte",
+    subtitle: "Descubre nuestras carnes y pollo",
     buttonText: "Ver Carnes y Pollo",
     link: "/carnes-pollo"
   }
